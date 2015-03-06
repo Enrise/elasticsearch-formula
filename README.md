@@ -1,6 +1,6 @@
 # elasticsearch-formula
 
-This formula will install the latest stable version of Nginx from the official repo.
+This formula will install the latest stable version of Elastcsearch from the official repo.
 
 ## Compatibility
 
