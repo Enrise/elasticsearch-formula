@@ -1,0 +1,6 @@
+elasticsearch:
+  # The exact version of elastic search to install.
+  version: 1.4.4
+
+  # The version for the apt repository.
+  repo_version: 1.4
