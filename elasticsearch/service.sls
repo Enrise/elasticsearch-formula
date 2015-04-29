@@ -3,7 +3,6 @@ extend:
   elasticsearch:
     service.running:
       - enable: True
-      - reload: True
       - watch:
         - pkg: elasticsearch
       - require:
