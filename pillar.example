@@ -4,3 +4,7 @@ elasticsearch:
 
   # The version for the apt repository.
   repo_version: 1.4
+
+  config:
+    # Enable dynamic scripting
+    script_groovy_sandbox_enabled: true

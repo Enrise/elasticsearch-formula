@@ -366,3 +366,7 @@ network.host: {{ network.host }}
 # it unless you need it is recommended (it is disabled by default).
 #
 #http.jsonp.enable: true
+
+################################## Scripting ################################
+
+script.groovy.sandbox.enabled: {{ script_groovy_sandbox_enabled|default('false') }}
