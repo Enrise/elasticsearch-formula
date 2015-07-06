@@ -1,13 +1,8 @@
 # Library with macro's
-{%- macro elasticsearch_plugin(name, module_dir, url='') %}
+{%- macro elasticsearch_plugin(name, plugin_dir, package) %}
 # Installs {{ name }} plugin for ElasticSearch
-es_plugin_{{ module_dir }}:
+es_plugin_{{ name }}:
   cmd.run:
-    {%- if url != '' %}
-    - name: /usr/share/elasticsearch/bin/plugin -install "{{ name }}" -url "{{ url }}"
-    {%- else %}
-    - name: /usr/share/elasticsearch/bin/plugin -install "{{ name }}"
-    {%- endif %}
-    - creates: /usr/share/elasticsearch/plugins/{{ module_dir }}
-    #- unless: "test /usr/share/elasticsearch/bin/plugin -l | grep {{ module_dir }}$"
+    - name: /usr/share/elasticsearch/bin/plugin install {{ package }}
+    - creates: /usr/share/elasticsearch/plugins/{{ plugin_dir }}
 {%- endmacro %}
