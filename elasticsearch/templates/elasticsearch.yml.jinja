@@ -298,13 +298,21 @@ network.host: {{ network.host }}
 #
 # 1. Disable multicast discovery (enabled by default):
 #
-#discovery.zen.ping.multicast.enabled: false
+{%- if 'zen.ping.multicast.enabled' in discovery: %}
+discovery.zen.ping.multicast.enabled: {{ discovery.zen.ping.multicast.enabled }}
+{%- endif %}
 #
 # 2. Configure an initial list of master nodes in the cluster
 #    to perform discovery when new nodes (master or data) are started:
 #
 #discovery.zen.ping.unicast.hosts: ["host1", "host2:port"]
 
+{%- if 'type' in discovery: %}
+discovery.type: {{ discovery.type }}
+{%- endif %}
+{%- endif %}
+{%- if cloud is defined: %}
+#
 # EC2 discovery allows to use AWS EC2 API in order to perform discovery.
 #
 # You have to install the cloud-aws plugin for enabling the EC2 discovery.
@@ -314,7 +322,12 @@ network.host: {{ network.host }}
 #
 # See <http://elasticsearch.org/tutorials/elasticsearch-on-ec2/>
 # for a step-by-step tutorial.
-
+{%- if 'aws' in cloud: %}
+cloud.aws:
+{%- for k, v in cloud.aws %}
+  {{ k }}: {{ v }}
+{% endfor -%}
+{%- endif %}
 # GCE discovery allows to use Google Compute Engine API in order to perform discovery.
 #
 # You have to install the cloud-gce plugin for enabling the GCE discovery.
