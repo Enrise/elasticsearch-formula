@@ -298,8 +298,8 @@ network.host: {{ network.host }}
 #
 # 1. Disable multicast discovery (enabled by default):
 #
-{%- if 'zen.ping.multicast.enabled' in discovery: %}
-discovery.zen.ping.multicast.enabled: {{ discovery.zen.ping.multicast.enabled }}
+{%- if 'zen_ping_multicast_enabled' in discovery: %}
+discovery.zen.ping.multicast.enabled: {{ discovery.zen_ping_multicast_enabled }}
 {%- endif %}
 #
 # 2. Configure an initial list of master nodes in the cluster
@@ -324,9 +324,9 @@ discovery.type: {{ discovery.type }}
 # for a step-by-step tutorial.
 {%- if 'aws' in cloud: %}
 cloud.aws:
-{%- for k, v in cloud.aws %}
+{%- for k, v in cloud.aws.items() %}
   {{ k }}: {{ v }}
-{% endfor -%}
+{%- endfor -%}
 {%- endif %}
 # GCE discovery allows to use Google Compute Engine API in order to perform discovery.
 #
