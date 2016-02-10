@@ -8,6 +8,8 @@ elasticsearch:
   config:
     # Enable dynamic scripting
     script_groovy_sandbox_enabled: true
+    script_inline: on
+    script_indexed: on
 
   plugins:
     analysis-icu:
