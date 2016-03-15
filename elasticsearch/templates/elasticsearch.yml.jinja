@@ -301,6 +301,10 @@ network.host: {{ network.host }}
 {%- if 'zen_ping_multicast_enabled' in discovery: %}
 discovery.zen.ping.multicast.enabled: {{ discovery.zen_ping_multicast_enabled }}
 {%- endif %}
+{%- if 'zen_ping_multicast_group' in discovery: %}
+discovery.zen.ping.multicast.group: {{ discovery.zen_ping_multicast_group }}
+{%- endif %}
+
 #
 # 2. Configure an initial list of master nodes in the cluster
 #    to perform discovery when new nodes (master or data) are started:
