@@ -313,6 +313,10 @@ discovery.zen.ping.multicast.group: {{ discovery.zen_ping_multicast_group }}
 #
 #discovery.zen.ping.unicast.hosts: ["host1", "host2:port"]
 
+{%- if 'zen_ping_unicast_hosts' in discovery: %}
+discovery.zen.ping.unicast.hosts: {{ discovery.zen_ping_unicast_hosts }}
+{%- endif %}
+
 {%- if 'type' in discovery: %}
 discovery.type: {{ discovery.type }}
 {%- endif %}
