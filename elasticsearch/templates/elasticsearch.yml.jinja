@@ -1,4 +1,5 @@
 # Salt managed config file
+# Template: {{ source }}
 
 {%- if cluster is defined %}
 ################################### Cluster ###################################
@@ -141,6 +142,7 @@ plugin.mandatory: {{ plugin.mandatory|join(',') }}
 {%- endif %}
 
 {%- endif %}
+{%- if bootstrap is defined: %}
 ################################### Memory ####################################
 
 # Elasticsearch performs poorly when JVM starts swapping: you should ensure that
@@ -148,7 +150,9 @@ plugin.mandatory: {{ plugin.mandatory|join(',') }}
 #
 # Set this property to true to lock the memory:
 #
-#bootstrap.mlockall: true
+{%- if 'mlockall' in bootstrap: %}
+bootstrap.mlockall: {{ bootstrap.mlockall }}
+{%- endif %}
 
 # Make sure that the ES_MIN_MEM and ES_MAX_MEM environment variables are set
 # to the same value, and that the machine has enough memory to allocate
@@ -157,7 +161,7 @@ plugin.mandatory: {{ plugin.mandatory|join(',') }}
 # You should also make sure that the Elasticsearch process is allowed to lock
 # the memory, eg. by using `ulimit -l unlimited`.
 
-
+{%- endif %}
 {%- if network is defined: %}
 ############################## Network And HTTP ###############################
 
@@ -277,7 +281,9 @@ network.host: {{ network.host }}
 # operational within the cluster. This should be set to a quorum/majority of
 # the master-eligible nodes in the cluster.
 #
-#discovery.zen.minimum_master_nodes: 1
+{%- if 'zen_minimum_master_nodes' in discovery: %}
+discovery.zen.minimum_master_nodes: {{ discovery.zen_minimum_master_nodes }}
+{%- endif %}
 
 # Set the time to wait for ping responses from other nodes when discovering.
 # Set this option to a higher value on a slow or congested network
@@ -294,13 +300,29 @@ network.host: {{ network.host }}
 #
 # 1. Disable multicast discovery (enabled by default):
 #
-#discovery.zen.ping.multicast.enabled: false
+{%- if 'zen_ping_multicast_enabled' in discovery: %}
+discovery.zen.ping.multicast.enabled: {{ discovery.zen_ping_multicast_enabled }}
+{%- endif %}
+{%- if 'zen_ping_multicast_group' in discovery: %}
+discovery.zen.ping.multicast.group: {{ discovery.zen_ping_multicast_group }}
+{%- endif %}
+
 #
 # 2. Configure an initial list of master nodes in the cluster
 #    to perform discovery when new nodes (master or data) are started:
 #
 #discovery.zen.ping.unicast.hosts: ["host1", "host2:port"]
 
+{%- if 'zen_ping_unicast_hosts' in discovery: %}
+discovery.zen.ping.unicast.hosts: {{ discovery.zen_ping_unicast_hosts }}
+{%- endif %}
+
+{%- if 'type' in discovery: %}
+discovery.type: {{ discovery.type }}
+{%- endif %}
+{%- endif %}
+{%- if cloud is defined: %}
+#
 # EC2 discovery allows to use AWS EC2 API in order to perform discovery.
 #
 # You have to install the cloud-aws plugin for enabling the EC2 discovery.
@@ -310,7 +332,12 @@ network.host: {{ network.host }}
 #
 # See <http://elasticsearch.org/tutorials/elasticsearch-on-ec2/>
 # for a step-by-step tutorial.
-
+{%- if 'aws' in cloud: %}
+cloud.aws:
+{%- for k, v in cloud.aws.items() %}
+  {{ k }}: {{ v }}
+{%- endfor -%}
+{%- endif %}
 # GCE discovery allows to use Google Compute Engine API in order to perform discovery.
 #
 # You have to install the cloud-gce plugin for enabling the GCE discovery.
@@ -362,3 +389,9 @@ network.host: {{ network.host }}
 # it unless you need it is recommended (it is disabled by default).
 #
 #http.jsonp.enable: true
+
+################################## Scripting ################################
+
+script.groovy.sandbox.enabled: {{ script_groovy_sandbox_enabled|default('false') }}
+script.inline: {{ script_inline|default('off') }}
+script.indexed: {{ script_indexed|default('off') }}

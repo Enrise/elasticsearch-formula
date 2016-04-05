@@ -1,2 +1,2 @@
 default-jre-headless:
-    pkg.installed
+  pkg.installed

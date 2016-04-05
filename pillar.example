@@ -4,3 +4,17 @@ elasticsearch:
 
   # The version for the apt repository.
   repo_version: 1.4
+
+  config:
+    # Enable dynamic scripting
+    script_groovy_sandbox_enabled: true
+    script_inline: on
+    script_indexed: on
+
+  plugins:
+    analysis-icu:
+      package: 'elasticsearch/elasticsearch-analysis-icu/2.5.0'
+      plugin_dir: 'analysis-icu'
+    plugin2:
+      package: 'plugin2/plugin2/1.2.3'
+      plugin_dir: 'plugin2-installed'
