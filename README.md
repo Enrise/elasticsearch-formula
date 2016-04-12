@@ -1,6 +1,8 @@
 # elasticsearch-formula
 
-This formula will install the latest stable version of Elastcsearch from the official repo.
+[![Travis branch](https://img.shields.io/travis/Enrise/elasticsearch-formula/master.svg?style=flat-square)](https://travis-ci.org/Enrise/elasticsearch-formula)
+
+This formula will install the latest stable version of Elasticsearch from the official repo.
 
 ## Compatibility
 
