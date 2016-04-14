@@ -7,7 +7,5 @@ elasticsearch:
     - version: {{ version }}
     - hold: True # prevent automatic upgrades
 {%- endif %}
-{% if salt['grains.get']('os_family') != 'Debian' %}
     - require:
       - pkg: default-jre-headless
-{%- endif %}
