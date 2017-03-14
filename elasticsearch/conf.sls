@@ -35,13 +35,15 @@
 {%- endif %}
 
 # Configure jvm.options
-/etc/elasticsearch/jvm.options:
-  file.append:
-    - text:
+jvm_options:
+  file.blockreplace:
+    - name: /etc/elasticsearch/jvm.options
+    - marker_start: "# START managed zone jvm_options -DO-NOT-EDIT-"
+    - marker_end: "# END managed zone jvm_options --"
+    - content: |
       {%- for value in jvm_options %}
-      - "{{ value }}"
+        {{ value }}
       {%- endfor %}
-    - watch_in:
-      - service: elasticsearch
-    - require_in:
-      - service: elasticsearch
+    - backup: false
+    - append_if_not_found: True
+    - show_changes: True
