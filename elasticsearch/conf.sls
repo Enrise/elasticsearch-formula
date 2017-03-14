@@ -35,7 +35,7 @@
 {%- endif %}
 
 # Configure jvm.options
-{%- if jvm_options is defined %}
+{%- if jvm_options is sequence %}
 jvm_options:
   file.blockreplace:
     - name: /etc/elasticsearch/jvm.options
