@@ -1,7 +1,7 @@
 # Config ES
 {%- set config = salt['pillar.get']('elasticsearch:config') %}
 {%- set default_conf = salt['pillar.get']('elasticsearch:init_defaults') %}
-{%- set jvm_options = salt['pillar.get']('elasticsearch:jvm_options') %}
+{%- set jvm_options = salt['pillar.get']('elasticsearch:jvm_options', None) %}
 {%- set es_config_template = salt['pillar.get']('elasticsearch:template', 'salt://elasticsearch/templates/elasticsearch.yml.jinja') %}
 {%- set es_config_template_type = salt['pillar.get']('elasticsearch:template_type', 'jinja') %}
 
@@ -35,7 +35,7 @@
 {%- endif %}
 
 # Configure jvm.options
-{%- if jvm_options is sequence %}
+{%- if jvm_options is not none %}
 jvm_options:
   file.blockreplace:
     - name: /etc/elasticsearch/jvm.options
