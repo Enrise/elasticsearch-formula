@@ -35,6 +35,7 @@
 {%- endif %}
 
 # Configure jvm.options
+{%- if jvm_options is defined %}
 jvm_options:
   file.blockreplace:
     - name: /etc/elasticsearch/jvm.options
@@ -47,3 +48,4 @@ jvm_options:
     - backup: false
     - append_if_not_found: True
     - show_changes: True
+{%- endif %}
