@@ -1,6 +1,7 @@
 # Config ES
 {%- set config = salt['pillar.get']('elasticsearch:config') %}
 {%- set default_conf = salt['pillar.get']('elasticsearch:init_defaults') %}
+{%- set jvm_options = salt['pillar.get']('elasticsearch:jvm_options') %}
 {%- set es_config_template = salt['pillar.get']('elasticsearch:template', 'salt://elasticsearch/templates/elasticsearch.yml.jinja') %}
 {%- set es_config_template_type = salt['pillar.get']('elasticsearch:template_type', 'jinja') %}
 
@@ -32,3 +33,15 @@
     - require_in:
       - service: elasticsearch
 {%- endif %}
+
+# Configure jvm.options
+/etc/elasticsearch/jvm.options:
+  file.append:
+    - text:
+      {%- for value in jvm_options %}
+      - "{{ value }}"
+      {%- endfor %}
+    - watch_in:
+      - service: elasticsearch
+    - require_in:
+      - service: elasticsearch
