@@ -73,9 +73,6 @@ index.number_of_replicas: {{ index.number_of_replicas|default(1) }}
 
 # Note, that for development on a local machine, with small indices, it usually
 # makes sense to "disable" the distributed features:
-#
-index.number_of_shards: {{ index.number_of_shards|default(1) }}
-index.number_of_replicas: {{ index.number_of_replicas|default(0) }}
 
 # These settings directly affect the performance of index and search operations
 # in your cluster. Assuming you have enough machines to hold shards and
@@ -392,6 +389,8 @@ cloud.aws:
 
 ################################## Scripting ################################
 
+{%- if default_script_params is not defined or not default_script_params %}
 script.groovy.sandbox.enabled: {{ script_groovy_sandbox_enabled|default('false') }}
 script.inline: {{ script_inline|default('off') }}
 script.indexed: {{ script_indexed|default('off') }}
+{%- endif %}
