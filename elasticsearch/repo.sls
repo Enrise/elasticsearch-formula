@@ -6,7 +6,7 @@
   {%- set repo_definition = 'deb http://artifacts.elastic.co/packages/' ~ repo_version ~ '/apt stable main' %}
   {%- set file = 'elastic' %}
 {% else %}
-  {%- set repo_definition = 'deb http://packages.elastic.co/elasticsearch/' ~ repo_version ~ '/debian stable main' ~ version %}
+  {%- set repo_definition = 'deb http://packages.elastic.co/elasticsearch/' ~ repo_version ~ '/debian stable main'%}
   {%- set file = 'elasticsearch' %}
 {% endif %}
 
