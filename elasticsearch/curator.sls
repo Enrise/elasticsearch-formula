@@ -19,22 +19,22 @@ elasticsearch-curator:
   {%- set curator_command = 'curator_cli' %}
   {%- set curator_delete_indices = 'delete_indices' %}
 
-  {%- set json_filter = [
+  {%- set json_filter = '[
     {
-      'filtertype': "age",
-      'source': "creation_date",
-      'direction': "older",
-      'unit': "{{ time_unit }}",
-      'unit_count': "{{ older_than }}"
+      filtertype: "age",
+      source: "creation_date",
+      direction: "older",
+      unit: {{ time_unit }},
+      unit_count: {{ older_than }}
     },
     {
-      'filtertype': "pattern",
-      'kind': "prefix",
-      'value': "{{ index }}"
+      filtertype: "pattern",
+      kind: "prefix",
+      value: {{ index }}
     }
-  ]
+  ]'
   %}
-  {%- set curator_filter = "--filter_list {{ json_filter | json }}" %}
+  {%- set curator_filter = '--filter_list ' ~ json_filter|json|safe %}
 {% else %}
   {%- set curator_command = 'curator' %}
   {%- set curator_delete_indices = 'delete indices' %}
