@@ -6,15 +6,17 @@ env:
   global:
     - BS_PIP_ALLOWED=1
     - BS_ECHO_DEBUG=1
-    - SALT_ARGS="-l debug --local --retcode-passthrough --pillar-root=.salt/pillar --file-root=$PWD"
   matrix:
-    - STATE=elasticsearch.java,elasticsearch
+    - SALT_ARGS="-l debug --local --retcode-passthrough --pillar-root=.salt/pillar/elasticsearch --file-root=$PWD" STATE="elasticsearch.java,elasticsearch"
+    - SALT_ARGS="-l debug --local --retcode-passthrough --pillar-root=.salt/pillar/curator --file-root=$PWD" STATE="elasticsearch.curator"
 
 before_install:
   - sudo apt-get update
   - curl -L http://bootstrap.saltstack.org | sudo -E sh -s -- stable
 
 install:
+  # Get rid of existing elasticsearch installation
+  - DEBIAN_FRONTEND=noninteractive sudo apt-get purge elasticsearch -y
   - sudo mkdir -p /srv && sudo ln -sfn $PWD /srv/formula
   # Show the loaded pillars since the states are generally depending on this
   - sudo salt-call pillar.items $SALT_ARGS

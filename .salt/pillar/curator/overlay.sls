@@ -1,0 +1,1 @@
+# Addendum to pillar.example
