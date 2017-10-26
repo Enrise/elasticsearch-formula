@@ -1,4 +1,9 @@
 {%- set indices = salt['pillar.get']('elasticsearch:indices', {}) %}
+{%- set curator_version = salt['pillar.get']('elasticsearch:curator:version') %}
+{%- set curator_pkg_string = 'elasticsearch-curator' %}
+{%- if curator_version is defined %}
+{%- set curator_pkg_string = curator_pkg_string ~ ' ' ~ curator_version %}
+{%- endif %}
 
 elasticsearch-curator-pip:
   pkg.installed:
@@ -6,6 +11,7 @@ elasticsearch-curator-pip:
 
 elasticsearch-curator:
   pip.installed:
+    - name: {{ curator_pkg_string }}
     - require:
       - pkg: python-pip
 

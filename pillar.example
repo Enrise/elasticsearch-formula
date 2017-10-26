@@ -18,3 +18,10 @@ elasticsearch:
     #plugin2:
     #  package: 'plugin2/plugin2/1.2.3'
     #  plugin_dir: 'plugin2-installed'
+
+  # Elasticsearch Curator
+  #curator:
+  #  version: '>= 3.0.0, <= 4.0.0' # Use Curator 3.x for Elasticsearch 1.x
+    ##version: '== 5.2.0'
+    ##version: '<= 5.2.0'
+    ##version: '>= 5.1.9'
