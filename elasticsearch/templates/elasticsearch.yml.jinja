@@ -192,7 +192,7 @@ network.host: {{ network.host }}
 
 # Enable compression for all communication between nodes (disabled by default):
 #
-#transport.tcp.compress: true
+transport.tcp.compress: {{ transport.tcp.compress|default('false') }}
 
 # Set a custom port to listen for HTTP traffic:
 #
