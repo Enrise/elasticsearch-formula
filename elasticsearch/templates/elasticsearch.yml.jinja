@@ -153,6 +153,9 @@ plugin.mandatory: {{ plugin.mandatory|join(',') }}
 {%- if 'mlockall' in bootstrap: %}
 bootstrap.mlockall: {{ bootstrap.mlockall }}
 {%- endif %}
+{%- if 'memory_lock' in bootstrap: %}
+bootstrap.memory_lock: {{ bootstrap.memory_lock }}
+{%- endif %}
 
 # Make sure that the ES_MIN_MEM and ES_MAX_MEM environment variables are set
 # to the same value, and that the machine has enough memory to allocate
