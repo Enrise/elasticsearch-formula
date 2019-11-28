@@ -25,7 +25,7 @@
 /etc/default/elasticsearch:
   file.append:
     - text:
-      {%- for key, value in default_conf.iteritems() %}
+      {%- for key, value in default_conf.items() %}
       - "{{ key|upper }}={{ value }}"
       {%- endfor %}
     - watch_in:
