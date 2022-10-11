@@ -1,3 +1,9 @@
+# Archived and unmaintained
+
+This is an old repository that is no longer used or maintained. We advice to no longer use this repository.
+
+## Original README can be found below:
+
 # elasticsearch-formula
 
 [![Travis branch](https://img.shields.io/travis/Enrise/elasticsearch-formula/master.svg?style=flat-square)](https://travis-ci.org/Enrise/elasticsearch-formula)
